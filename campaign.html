@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binance MENA Campaign Summary</title>
+  <link rel="icon" type="image/png" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 400;
+      margin: 0;
+      padding: 5px;
+      max-width: 1600px;
+      margin: 0 auto;
+      background-color: #1E2329;
+      color: #ffffff;
+    }
+    h1 {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+      color: #FCD535;
+    }
+    h2, h3 {
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .top-section {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 20px;
+    }
+    .middle-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .bottom-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .left-column {
+      border-right: 1px solid #eee;
+      padding-right: 15px;
+    }
+    .right-column {
+      padding-left: 15px;
+    }
+    ul {
+      padding-left: 15px;
+      margin: 5px 0;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    .objectives-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .objective-box {
+      background-color: #2B3139;
+      border: 1px solid #3a3f45;
+      border-radius: 6px;
+      padding: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .objective-box h3 {
+      margin-top: 0;
+      color: #ffffff;
+      border-bottom: 1px solid #f0b90b;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      font-size: 1em;
+    }
+    .target-box {
+      background-color: #2B3139;
+      border: 1px solid #3a3f45;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .target-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .tactics-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .tactic-box {
+      background-color: #2B3139;
+      border: 1px solid #3a3f45;
+      border-radius: 6px;
+      padding: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .tactic-box h3 {
+      margin-top: 0;
+      color: #ffffff;
+      border-bottom: 1px solid #f0b90b;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      font-size: 1em;
+    }
+    .tactic-image {
+      width: 100%;
+      height: 120px;
+      background-color: #e9ecef;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .tactic-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .tactic-box p {
+      margin: 0;
+      color: #e0e0e0;
+    }
+    /* Timeline Styles */
+    .timeline {
+      position: relative;
+      max-width: 100%;
+      margin: 20px 0;
+    }
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #f0b90b;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+    .timeline-item {
+      padding: 5px 30px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #f0b90b;
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+    .left {
+      left: 0;
+    }
+    .right {
+      left: 50%;
+    }
+    .left::after {
+      right: -10px;
+    }
+    .right::after {
+      left: -10px;
+    }
+    .timeline-content {
+      padding: 12px;
+      background-color: #2B3139;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .timeline-content h4 {
+      margin: 0 0 5px 0;
+      color: #ffffff;
+      font-size: 0.9em;
+    }
+    .timeline-content p {
+      margin: 0;
+      color: #e0e0e0;
+    }
+    /* Channel Icons Styles */
+    .channels-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .channel-item {
+      display: flex;
+      align-items: center;
+      background-color: #2B3139;
+      padding: 8px 12px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .channel-item i {
+      font-size: 18px;
+      margin-right: 10px;
+      color: #f0b90b;
+    }
+    .channel-item span {
+      font-size: 16px;
+      color: #e0e0e0;
+    }
+    .budget-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .chart-container {
+      width: 500px;
+      height: 500px;
+      margin-bottom: 10px;
+    }
+    .total-budget {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #FAFAFA;
+      margin-top: 5px;
+    }
+    .cases-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 15px;
+    }
+    .case-box {
+      flex: 1;
+      padding: 12px;
+      background-color: #2B3139;
+      border: 1px solid #3a3f45;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .case-box h2 {
+      margin-top: 0;
+      margin-bottom: 5px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+    .case-box i {
+      margin-right: 10px;
+    }
+    .case-box ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo-container img {
+      height: 40px;
+      width: auto;
+    }
+    /* Work Details Section Styles */
+    .work-details-section {
+      text-align: center;
+      margin: 20px 0 30px 0;
+    }
+    .work-details-title {
+      color: #FCD535;
+      margin-bottom: 10px;
+      font-size: 1.5em;
+    }
+    .work-details-note {
+      color: #e0e0e0;
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+    .work-boxes-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto;
+      max-width: 1200px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 5px;
+    }
+    .work-box {
+      background-color: #2B3139;
+      border: 1px solid #3a3f45;
+      border-radius: 8px;
+      padding: 12px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 120px;
+      max-width: 120px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .work-box:hover {
+      transform: translateY(-5px);
+      border-color: #f0b90b;
+      box-shadow: 0 4px 12px rgba(240, 185, 11, 0.2);
+    }
+    .work-box i {
+      font-size: 20px;
+      color: #f0b90b;
+    }
+    .work-box span {
+      color: #ffffff;
+      font-size: 0.85em;
+      font-weight: 500;
+      text-align: center;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="logo.png" alt="Binance Logo">
+  </div>
+
+  <div class="work-details-section">
+    <h2 class="work-details-title">👇 Full Work Details</h2>
+    <p class="work-details-note">click these links to view detailed works</p>
+    <div class="work-boxes-container">
+      <a href="https://gamma.app/docs/MENA-Crypto-Market-Analysis-Cultural-and-Behavioral-Insights-gnbfo1m8e7vrx6s" target="_blank" class="work-box">
+        <i class="fas fa-chart-line"></i>
+        <span>Market Research</span>
+      </a>
+      <a href="https://gamma.app/docs/PMF-or-Die-9s6thklvjuwrzw2" target="_blank" class="work-box">
+        <i class="fas fa-bullseye"></i>
+        <span>PMF or Die</span>
+      </a>
+      <a href="https://gamma.app/docs/Objectives-kzvvnbmpqtreavp" target="_blank" class="work-box">
+        <i class="fas fa-flag"></i>
+        <span>Objectives</span>
+      </a>
+      <a href="https://gamma.app/docs/Strategy-g4crutsr2tn5v3c" target="_blank" class="work-box">
+        <i class="fas fa-chess"></i>
+        <span>Strategy</span>
+      </a>
+      <a href="https://gamma.app/docs/Tactics-aed0lpbdxl2e1q8" target="_blank" class="work-box">
+        <i class="fas fa-tools"></i>
+        <span>Tactics</span>
+      </a>
+      <a href="https://gamma.app/docs/Actions-2975ezkngbjh2tb" target="_blank" class="work-box">
+        <i class="fas fa-play-circle"></i>
+        <span>Action</span>
+      </a>
+      <a href="https://gamma.app/docs/Control-6psn2avn9m2511s" target="_blank" class="work-box">
+        <i class="fas fa-sliders-h"></i>
+        <span>Control</span>
+      </a>
+    </div>
+  </div>
+
+  <h1>Binance MENA Campaign Summary – "Buy Crypto Fee Voucher"</h1>
+
+  <div class="container">
+    <div class="top-section">
+      <div class="left-column">
+        <h2>🎯 Grand Goal</h2>
+        <p>Drive mass adoption of fiat-to-crypto via Binance in MENA by eliminating high-fee friction with the Buy Crypto Fee Voucher, establishing Binance as the lowest-cost, most trusted on-ramp in UAE, Bahrain, Saudi Arabia, and Turkey.</p>
+
+        <h2>✅ Objectives</h2>
+        <div class="objectives-container">
+          <div class="objective-box">
+            <h3>Business</h3>
+            <ul>
+              <li>Acquire net-new users deterred by on-ramp fees.</li>
+              <li>Increase repeat transactions (stablecoin buys in Turkey, remittance flows in Gulf states).</li>
+              <li>Strengthen Binance's market leadership as the "lowest-fee, fully regulated" exchange in MENA.</li>
+            </ul>
+          </div>
+
+          <div class="objective-box">
+            <h3>Marketing</h3>
+            <ul>
+              <li>Position Binance as the no-fee champion to outcompete local brokers with hidden spreads.</li>
+              <li>Build trust by highlighting regulatory compliance (UAE, Bahrain) and local language support.</li>
+              <li>Educate new/lapsed users on a simple, one-step fiat-to-crypto flow.</li>
+            </ul>
+          </div>
+
+          <div class="objective-box">
+            <h3>Communication</h3>
+            <ul>
+              <li>Emphasize pain-point relief: "No hidden costs, no punishing fees."</li>
+              <li>Reinforce credibility: official licenses, secure platform, user testimonials.</li>
+              <li>Showcase real use cases (remittance savings, inflation hedge) from each local market.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>🎯 Target Audience (ICP)</h2>
+        <div class="target-container">
+          <div class="target-box">
+            <p><strong style="display: block; text-align: center; margin-bottom: 8px;">Demographics <i class="fas fa-users"></i></strong>Ages 18–35, digitally savvy, smartphone-first.</p>
+          </div>
+          <div class="target-box">
+            <p><strong style="display: block; text-align: center; margin-bottom: 8px;">Locations <i class="fas fa-map-marker-alt"></i></strong>Major MENA hubs (Dubai, Abu Dhabi, Riyadh, Istanbul, Manama).</p>
+          </div>
+          <div class="target-box">
+            <p><strong style="display: block; text-align: center; margin-bottom: 8px;">Needs & Motivations <i class="fas fa-bullseye"></i></strong>Fee-sensitive newcomers, young remittance senders, and inflation-hedgers seeking low-friction buys.</p>
+          </div>
+          <div class="target-box">
+            <p><strong style="display: block; text-align: center; margin-bottom: 8px;">Key Behaviors <i class="fas fa-chart-line"></i></strong>Distrust of "hidden fees" or slow local exchanges; prefer user-friendly apps, strong brand trust, and Arabic/Turkish support.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-column">
+        <h2>🧠 Core Strategy</h2>
+        <ul>
+          <li>Focus on Zero-Fee: Eliminate the #1 barrier (high or "hidden" transaction costs).</li>
+          <li>Localize Messaging:
+            <ul>
+              <li><strong>Turkey:</strong> "Inflation Hedge" stablecoin promos.</li>
+              <li><strong>Gulf & Saudi:</strong> Cheap remittances and regulated peace of mind.</li>
+            </ul>
+          </li>
+          <li>Trust & Social Proof: Boost adoption via real user stories, on-ground demos, and micro-influencers.</li>
+          <li>Spark Trial → Retain: Acquire cost-conscious users with a voucher, then nudge them to repeat buys.</li>
+        </ul>
+
+        <h2>🛠 Tactics</h2>
+        <div class="tactics-container">
+          <div class="tactic-box">
+            <h3>Boosted Referral: Zero-Fee First Buy</h3>
+            <div class="tactic-image">
+              <img src="tactic_1.png" alt="Zero-Fee Referral Blitz">
+            </div>
+            <p>Offer new users a free "Buy Crypto Fee Voucher," reward referrers with bonus credit.</p>
+          </div>
+
+          <div class="tactic-box">
+            <h3>"Remittance Remastered" Roadshow</h3>
+            <div class="tactic-image">
+              <img src="tactic_2.png" alt="Remittance Remastered Roadshow">
+            </div>
+            <p>On-ground pop-up booths in UAE/Bahrain to demo zero-fee fiat-to-crypto.</p>
+          </div>
+
+          <div class="tactic-box">
+            <h3>Turkey Stablecoin Promo</h3>
+            <div class="tactic-image">
+              <img src="tactic_3.png" alt="Inflation Hedge Promo for Turkey">
+            </div>
+            <p>Monthly stablecoin fee waiver (up to 3 buys).</p>
+          </div>
+
+          <div class="tactic-box">
+            <h3>Fee-Buster Testimonies</h3>
+            <div class="tactic-image">
+              <img src="tactic_4.png" alt="Fee-Buster User Testimonies">
+            </div>
+            <p>Internal and external UGCs showing real fee savings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle-section">
+      <h2>📅 Roll-Out Timeline (~16 Weeks)</h2>
+      <div class="timeline">
+        <div class="timeline-item left">
+          <div class="timeline-content">
+            <h4>Pre-Launch (Weeks 0–2)</h4>
+            <p>Finalize referral system, localize assets, train support.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-content">
+            <h4>Launch & Initial Blitz (Weeks 2–6)</h4>
+            <p>Go live with referral codes, Turkey promos, finalize roadshow logistics.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-content">
+            <h4>Roadshow & Scaling (Weeks 6–10)</h4>
+            <p>On-ground events, big influencer push, monitor metrics.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-content">
+            <h4>Retention & Follow-Up (Weeks 10–16)</h4>
+            <p>Roll out user testimonies, retarget for second/third buys, debrief & reallocate.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>📲 Distribution Channels</h2>
+      <ul class="channels-list">
+        <li class="channel-item">
+          <i class="fas fa-hashtag"></i>
+          <span>Social + Paid Ads (Telegram, Twitter, TikTok, IG)</span>
+        </li>
+        <li class="channel-item">
+          <i class="fas fa-users"></i>
+          <span>Local Micro-Influencers & Community Moderators (trusted voices in each market)</span>
+        </li>
+        <li class="channel-item">
+          <i class="fas fa-store"></i>
+          <span>On-Ground Roadshow (UAE/Bahrain) for high-traffic events</span>
+        </li>
+        <li class="channel-item">
+          <i class="fas fa-bell"></i>
+          <span>In-App Banners & Email (to re-activate dormant users)</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bottom-section">
+      <h2>💸 Budget & Distribution</h2>
+      <div class="budget-container">
+        <div class="chart-container">
+          <canvas id="budgetChart"></canvas>
+        </div>
+        <div class="total-budget">Total Budget: $130,000</div>
+      </div>
+
+      <h2>📈 Key KPIs & Targets</h2>
+      <ul>
+        <li>CAC: Target $8 (roofshot), $5 (moonshot)</li>
+        <li>ROAS: 2.5x to 4x</li>
+        <li>Repeat Purchase Rate: 30-45% within 8 weeks</li>
+        <li>Referral Viral Coefficient: ~1.2-1.5</li>
+        <li>CTR: 1.5%–2%+</li>
+        <li>CVR: >20% from landing to first buy</li>
+        <li>Voucher Redemption Rate = Funnel Health</li>
+      </ul>
+
+      <h2>✅ Success Measurement</h2>
+      <ul>
+        <li>Daily Dashboards: CTR, voucher usage, conversions.</li>
+        <li>Weekly Reviews: ROAS, CAC, funnel issues.</li>
+        <li>Monthly: LTV, retention, regional ROI.</li>
+        <li>Attribution: last-click + post-sign-up behavior.</li>
+      </ul>
+
+      <div class="cases-container">
+        <div class="case-box bearish">
+          <h2><i class="fas fa-bear"></i> Bearish Scenario</h2>
+          <ul>
+            <li>High CAC or low voucher uptake → reallocate funds from weak channels, adjust referral incentives, or increase Turkey's stablecoin subsidy.</li>
+          </ul>
+        </div>
+
+        <div class="case-box bullish">
+          <h2><i class="fas fa-bull"></i> Bullish Scenario</h2>
+          <ul>
+            <li>Sign-ups, referrers, or stablecoin buys exceed forecasts → deploy contingency to scale roadshow or influencer push.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 40px; padding: 20px; color: #e0e0e0; font-size: 0.9em;">
+    by <a href="https://x.com/hunglv47" target="_blank" style="color: #FCD535; text-decoration: none; font-weight: 500;">@hunglv47</a>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('budgetChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Referral Blitz & Rewards', 'Roadshow (UAE/Bahrain)', 'Turkey Promo & Influencers', 'Fee-Buster UGC', 'Digital Ads & Contingency'],
+        datasets: [{
+          data: [23000, 35000, 25000, 15000, 32000],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'right'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const value = context.raw;
+                const percentage = ((value / 130000) * 100).toFixed(1);
+                return `$${value.toLocaleString()} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
